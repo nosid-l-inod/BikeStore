@@ -1,18 +1,312 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BikeStore</title>
-
-    <meta name="author" content="Donildison Afonso, André Alberto">
-    <meta name="description" content="Este é um website para venda de bicicletas">
-    <meta name="keywords" content="Bicicletas, Desporto, Elétrico, Venda">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="icon" href="Icon/bike-.png" type="image/gif">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veni Vidi Velocipede</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    
+<body class="bg-gray-100 font-sans">
+  <!-- Navigation Bar -->
+  <nav class="bg-blue-600 text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="text-2xl font-bold">Veni Vidi Velocipede</div>
+      <div class="space-x-4">
+        <a href="#home" class="hover:underline">Home</a>
+        <a href="#catalogo" class="hover:underline">Catálogo</a>
+        <a href="#admin" class="hover:underline">Vender</a>
+        <a href="#sugestoes" class="hover:underline">Sugestões</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Home Section -->
+  <section id="home" class="container mx-auto py-8">
+    <h1 class="text-3xl font-bold text-center mb-4">Bem-vindo à Veni Vidi Velocipede</h1>
+    <p class="text-center text-gray-700">Explore nosso catálogo de bicicletas de alta qualidade!</p>
+  </section>
+
+  <!-- Catalog Section -->
+  <section id="catalogo" class="container mx-auto py-8 hidden">
+    <h2 class="text-2xl font-bold mb-4">Catálogo de Produtos</h2>
+    <div id="product-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- Products will be dynamically inserted here -->
+    </div>
+    <div id="product-details" class="mt-4 hidden">
+      <h3 class="text-xl font-bold">Detalhes do Produto</h3>
+      <p id="details-content"></p>
+      <button id="close-details" class="mt-2 bg-blue-600 text-white px-4 py-2 rounded">Fechar</button>
+    </div>
+  </section>
+
+  <!-- Admin Section -->
+  <section id="admin" class="container mx-auto py-8 hidden">
+    <h2 class="text-2xl font-bold mb-4">Área de Administração</h2>
+    <form id="product-form" class="mb-4">
+      <input type="hidden" id="product-id">
+      <div class="mb-2">
+        <label for="model" class="block">Modelo:</label>
+        <input type="text" id="model" class="border p-2 w-full" required>
+      </div>
+      <div class="mb-2">
+        <label for="description" class="block">Descrição:</label>
+        <textarea id="description" class="border p-2 w-full" required></textarea>
+      </div>
+      <div class="mb-2">
+        <label for="price" class="block">Preço (€):</label>
+        <input type="number" id="price" step="0.01" class="border p-2 w-full" required>
+      </div>
+      <button type="submit" id="submit-product" class="bg-blue-600 text-white px-4 py-2 rounded">Adicionar Produto</button>
+    </form>
+    <div id="admin-product-list" class="grid grid-cols-1 gap-4">
+      <!-- Admin products will be dynamically inserted here -->
+    </div>
+  </section>
+
+  <!-- Suggestions Section -->
+  <section id="sugestoes" class="container mx-auto py-8 hidden">
+    <h2 class="text-2xl font-bold mb-4">Fórum de Sugestões</h2>
+    <form id="suggestion-form" class="mb-4">
+      <div class="mb-2">
+        <label for="suggestion-category" class="block">Categoria:</label>
+        <select id="suggestion-category" class="border p-2 w-full" required>
+          <option value="Novos Modelos">Novos Modelos</option>
+          <option value="Feedback sobre Produtos">Feedback sobre Produtos</option>
+          <option value="Melhorias no Site">Melhorias no Site</option>
+        </select>
+      </div>
+      <div class="mb-2">
+        <label for="suggestion-text" class="block">Sugestão:</label>
+        <textarea id="suggestion-text" class="border p-2 w-full" required></textarea>
+      </div>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Enviar Sugestão</button>
+    </form>
+    <div id="suggestion-list" class="space-y-4">
+      <!-- Suggestions will be dynamically inserted here -->
+    </div>
+  </section>
+
+  <script>
+    // Product class for managing products
+    class Product {
+      constructor(id, model, description, price) {
+        this.id = id;
+        this.model = model;
+        this.description = description;
+        this.price = parseFloat(price);
+        this.priceWithoutVAT = (this.price / 1.23).toFixed(2);
+        this.vat = (this.price - this.priceWithoutVAT).toFixed(2);
+      }
+    }
+
+    // Suggestion class for managing suggestions
+    class Suggestion {
+      constructor(id, category, text) {
+        this.id = id;
+        this.category = category;
+        this.text = text;
+      }
+    }
+
+    // Main application class
+    class BikeShop {
+      constructor() {
+        this.products = [
+          new Product(1, "MountainX", "Bicicleta para trilhos com suspensão", 700.00),
+          new Product(2, "SpeedLine Racer", "Bicicleta de corrida com quadro em carbono", 1200.00)
+        ];
+        this.suggestions = [];
+        this.currentProductId = 3;
+        this.currentSuggestionId = 1;
+        this.init();
+      }
+
+      init() {
+        this.setupNavigation();
+        this.renderProducts();
+        this.renderSuggestions();
+        this.setupEventListeners();
+      }
+
+      setupNavigation() {
+        document.querySelectorAll('nav a').forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelectorAll('section').forEach(section => section.classList.add('hidden'));
+            document.querySelector(link.getAttribute('href')).classList.remove('hidden');
+          });
+        });
+      }
+
+      renderProducts() {
+        const productList = document.getElementById('product-list');
+        const adminProductList = document.getElementById('admin-product-list');
+        productList.innerHTML = '';
+        adminProductList.innerHTML = '';
+
+        this.products.forEach(product => {
+          // Public catalog
+          const productCard = document.createElement('div');
+          productCard.className = 'bg-white p-4 rounded shadow';
+          productCard.innerHTML = `
+            <h3 class="font-bold">${product.model}</h3>
+            <p>${product.description}</p>
+            <p>Preço: €${product.price.toFixed(2)}</p>
+            <button class="view-details bg-blue-600 text-white px-2 py-1 rounded" data-id="${product.id}">Ver Detalhes</button>
+          `;
+          productList.appendChild(productCard);
+
+          // Admin list
+          const adminCard = document.createElement('div');
+          adminCard.className = 'bg-white p-4 rounded shadow flex justify-between';
+          adminCard.innerHTML = `
+            <div>
+              <p><strong>ID:</strong> ${product.id}</p>
+              <p><strong>Modelo:</strong> ${product.model}</p>
+              <p><strong>Descrição:</strong> ${product.description}</p>
+              <p><strong>Preço:</strong> €${product.price.toFixed(2)}</p>
+              <p><strong>Preço Sem IVA:</strong> €${product.priceWithoutVAT}</p>
+              <p><strong>IVA (23%):</strong> €${product.vat}</p>
+            </div>
+            <div>
+              <button class="edit-product bg-yellow-500 text-white px-2 py-1 rounded" data-id="${product.id}">Editar</button>
+              <button class="delete-product bg-red-600 text-white px-2 py-1 rounded" data-id="${product.id}">Apagar</button>
+            </div>
+          `;
+          adminProductList.appendChild(adminCard);
+        });
+      }
+
+      renderSuggestions() {
+        const suggestionList = document.getElementById('suggestion-list');
+        suggestionList.innerHTML = '';
+        this.suggestions.forEach(suggestion => {
+          const suggestionCard = document.createElement('div');
+          suggestionCard.className = 'bg-white p-4 rounded shadow';
+          suggestionCard.innerHTML = `
+            <p><strong>Categoria:</strong> ${suggestion.category}</p>
+            <p>${suggestion.text}</p>
+          `;
+          suggestionList.appendChild(suggestionCard);
+        });
+      }
+
+      addProduct(model, description, price) {
+        const product = new Product(this.currentProductId++, model, description, price);
+        this.products.push(product);
+        this.renderProducts();
+      }
+
+      editProduct(id, model, description, price) {
+        const product = this.products.find(p => p.id === id);
+        if (product) {
+          product.model = model;
+          product.description = description;
+          product.price = parseFloat(price);
+          product.priceWithoutVAT = (product.price / 1.23).toFixed(2);
+          product.vat = (product.price - product.priceWithoutVAT).toFixed(2);
+          this.renderProducts();
+        }
+      }
+
+      deleteProduct(id) {
+        this.products = this.products.filter(p => p.id !== id);
+        this.renderProducts();
+      }
+
+      addSuggestion(category, text) {
+        const suggestion = new Suggestion(this.currentSuggestionId++, category, text);
+        this.suggestions.push(suggestion);
+        this.renderSuggestions();
+      }
+
+      setupEventListeners() {
+        // Product form submission
+        document.getElementById('product-form').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const id = document.getElementById('product-id').value;
+          const model = document.getElementById('model').value;
+          const description = document.getElementById('description').value;
+          const price = document.getElementById('price').value;
+
+          if (!model || !description || !price) {
+            alert('Por favor, preencha todos os campos obrigatórios.');
+            return;
+          }
+
+          if (id) {
+            this.editProduct(parseInt(id), model, description, price);
+          } else {
+            this.addProduct(model, description, price);
+          }
+
+          document.getElementById('product-form').reset();
+          document.getElementById('product-id').value = '';
+          document.getElementById('submit-product').textContent = 'Adicionar Produto';
+        });
+
+        // Suggestion form submission
+        document.getElementById('suggestion-form').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const category = document.getElementById('suggestion-category').value;
+          const text = document.getElementById('suggestion-text').value;
+
+          if (!text) {
+            alert('Por favor, preencha o campo de sugestão.');
+            return;
+          }
+
+          this.addSuggestion(category, text);
+          document.getElementById('suggestion-form').reset();
+        });
+
+        // Product actions
+        document.getElementById('admin-product-list').addEventListener('click', (e) => {
+          if (e.target.classList.contains('edit-product')) {
+            const id = parseInt(e.target.dataset.id);
+            const product = this.products.find(p => p.id === id);
+            if (product) {
+              document.getElementById('product-id').value = product.id;
+              document.getElementById('model').value = product.model;
+              document.getElementById('description').value = product.description;
+              document.getElementById('price').value = product.price;
+              document.getElementById('submit-product').textContent = 'Editar Produto';
+            }
+          } else if (e.target.classList.contains('delete-product')) {
+            if (confirm('Tem certeza que deseja apagar este produto?')) {
+              const id = parseInt(e.target.dataset.id);
+              this.deleteProduct(id);
+            }
+          }
+        });
+
+        // View product details
+        document.getElementById('product-list').addEventListener('click', (e) => {
+          if (e.target.classList.contains('view-details')) {
+            const id = parseInt(e.target.dataset.id);
+            const product = this.products.find(p => p.id === id);
+            if (product) {
+              document.getElementById('details-content').innerHTML = `
+                <p><strong>Modelo:</strong> ${product.model}</p>
+                <p><strong>Descrição:</strong> ${product.description}</p>
+                <p><strong>Preço:</strong> €${product.price.toFixed(2)}</p>
+                <p><strong>Preço Sem IVA:</strong> €${product.priceWithoutVAT}</p>
+                <p><strong>IVA (23%):</strong> €${product.vat}</p>
+              `;
+              document.getElementById('product-details').classList.remove('hidden');
+            }
+          }
+        });
+
+        // Close product details
+        document.getElementById('close-details').addEventListener('click', () => {
+          document.getElementById('product-details').classList.add('hidden');
+        });
+      }
+    }
+
+    // Initialize the application
+    const shop = new BikeShop();
+  </script>
 </body>
 </html>
