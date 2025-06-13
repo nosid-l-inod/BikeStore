@@ -1,6 +1,7 @@
 # BikeStore
 Projeto para a cadeira de programação web
 
+# Estrutura do projeto
 
 # Salvar alterações
 1. git add .
@@ -9,3 +10,7 @@ Projeto para a cadeira de programação web
 
 # Atualizar o teu
 git pull
+
+# Funcionalidades adicionais
+1. modo escuro/claro
+2. Language toggle
