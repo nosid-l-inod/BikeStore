@@ -10,9 +10,12 @@ body {
   background-color: #f3f4f6;
 }
 
-nav {
+header {
   background-color: #1e40af;
   color: white;
+}
+
+nav {
   padding: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -47,32 +50,60 @@ nav {
   color: #93c5fd;
 }
 
-main {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
+.hero {
+  background-image: url("images/hero-image.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  width: 100%;
+  height: 400px;
 }
 
-h1 {
-  font-size: 2.2rem;
+.hero-content {
+  position: absolute;
+  padding: 1rem;
+  right: 2%;
+  bottom: 2rem;
+  z-index: 1;
+  background-color: rgba(250, 250, 250, 0.4);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  width: 500px;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
   margin-bottom: 1rem;
   color: #1e40af;
 }
 
-p {
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
+.hero-content p {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
   color: #4b5563;
 }
 
-.button-group {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
+.hero-content button {
+  padding: 0.75rem 1.5rem;
+  width: 50%;
+  border-radius: 4px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.hero-content button a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+.hero-content button:hover {
+  transition: 0.5s;
 }
 
 .button {
@@ -98,6 +129,86 @@ p {
   background-color: #16a34a;
 }
 
+.features {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.features h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: #1e40af;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.feature-item {
+  padding: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.feature-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+}
+
+.feature-item h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #1e40af;
+}
+
+.feature-item p {
+  color: #4b5563;
+}
+
+.cta {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.cta h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: #1e40af;
+}
+
+.cta p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #4b5563;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
 footer {
   background-color: #1e40af;
   color: white;
@@ -121,17 +232,35 @@ footer {
     gap: 0.75rem;
   }
 
-  main {
+  .hero {
+    height: 300px;
+  }
+
+  .hero-content {
+    width: 90%;
+    right: 5%;
+    bottom: 1rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .hero-content button {
+    width: 100%;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .features, .cta {
     margin: 1rem;
     padding: 1rem;
-  }
-
-  h1 {
-    font-size: 1.8rem;
-  }
-
-  p {
-    font-size: 1rem;
   }
 
   .button-group {

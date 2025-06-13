@@ -18,14 +18,12 @@ class Product {
 }
 
 class ProductManager {
-  
   constructor() {
     this.products = [
       new Product(1, "MountainX", "Bicicleta para trilhos com suspensão", 700.00),
       new Product(2, "SpeedLine", "Bicicleta de corrida com quadro em carbono", 1200.00),
     ];
   }
-
 
   addProduct(product) {
     this.products.push(product);

@@ -65,36 +65,38 @@ h1 {
   color: #1e40af;
 }
 
-#product-detail h2 {
+.reference-section {
+  margin-bottom: 2rem;
+}
+
+.reference-section h2 {
   font-size: 1.8rem;
   margin-bottom: 0.75rem;
   color: #1e40af;
 }
 
-#product-detail p {
-  font-size: 1.1rem;
+.reference-list {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+}
+
+.reference-list li {
   margin-bottom: 0.5rem;
   color: #4b5563;
 }
 
-#product-detail strong {
-  font-weight: bold;
+.reference-list strong {
+  color: #1e40af;
 }
 
-.button {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  background-color: #1e40af;
-  color: white;
+.reference-list a {
+  color: #2563eb;
   text-decoration: none;
-  border-radius: 4px;
-  margin-top: 1rem;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: color 0.3s ease;
 }
 
-.button:hover {
-  background-color: #2563eb;
-  transform: scale(1.05);
+.reference-list a:hover {
+  color: #1e40af;
 }
 
 footer {
@@ -129,12 +131,8 @@ footer {
     font-size: 1.8rem;
   }
 
-  #product-detail h2 {
+  .reference-section h2 {
     font-size: 1.5rem;
-  }
-
-  #product-detail p {
-    font-size: 1rem;
   }
 }
 
