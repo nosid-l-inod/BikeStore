@@ -9,7 +9,7 @@ class Product {
   }
 
   calculatePriceWithoutVAT() {
-    return (this.price / 1.23).toFixed(2);
+    return (this.price / 1.06).toFixed(2); //Aqui
   }
 
   calculateVAT() {
@@ -92,8 +92,8 @@ function renderProductDetail() {
         <p>${product.description}</p>
         <p><strong>Preço:</strong> €${product.price.toFixed(2)}</p>
         <p><strong>Preço Sem IVA:</strong> €${product.priceWithoutVAT}</p>
-        <p><strong>IVA (23%):</strong> €${product.vat}</p>
-      `;
+        <p><strong>IVA (6%):</strong> €${product.vat}</p> 
+      `; //aqui
     } else {
       productDetail.innerHTML = "<p>Produto não encontrado.</p>";
     }
