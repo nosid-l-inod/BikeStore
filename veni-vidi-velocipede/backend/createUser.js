@@ -8,8 +8,8 @@ const db = new sqlite3.Database('./database.sqlite', (err) => {
     }
     console.log('Conectado ao SQLite');
 
-    const username = 'admin';
-    const password = bcrypt.hashSync('sua_senha_aqui', 10); // Substitui pela tua senha
+    const username = 'admin2';
+    const password = bcrypt.hashSync('admin2', 10); // Substitui pela tua senha
     db.run(
         'INSERT INTO users (username, password) VALUES (?, ?)',
         [username, password],
