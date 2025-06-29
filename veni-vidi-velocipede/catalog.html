@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Veni Vidi Velocipede - Catálogo</title>
+        <link rel="stylesheet" href="css/catalog.css">
+        <link rel="icon" href="icon/bike-.png">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div class="nav-container">
+                    <a href="index.html" class="logo">Veni Vidi Velocipede</a>
+                    <div class="nav-links">
+                        <a href="index.html">Início</a>
+                        <a href="catalog.html">Catálogo</a>
+                        <a href="admin.html">Admin</a>
+                        <a href="forum.html">Fórum</a>
+                        <a href="references.html">Referências</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <h1>Catálogo de Bicicletas</h1>
+            <div class="filter-section">
+                <label for="category-filter">Filtrar por Categoria:</label>
+                <select id="category-filter">
+                    <option value="all">Todas</option>
+                    <option value="Montanha">Montanha</option>
+                    <option value="Estrada">Estrada</option>
+                    <option value="Urbana">Urbana</option>
+                    <option value="Elétrica">Elétrica</option>
+                </select>
+            </div>
+            <div id="product-list" class="product-grid"></div>
+        </main>
+        <footer>
+            <p>© 2025 Veni Vidi Velocipede. Todos os direitos reservados.</p>
+        </footer>
+        <script src="js/products.js"></script>
+    </body>
+</html>

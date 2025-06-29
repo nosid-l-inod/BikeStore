@@ -1,0 +1,54 @@
+<!-- forum.html -->
+
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Veni Vidi Velocipede - Fórum</title>
+        <link rel="stylesheet" href="css/forum.css">
+        <link rel="icon" href="icon/bike-.png">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div class="nav-container">
+                    <a href="index.html" class="logo">Veni Vidi Velocipede</a>
+                    <div class="nav-links">
+                        <a href="index.html">Início</a>
+                        <a href="catalog.html">Catálogo</a>
+                        <a href="admin.html">Admin</a>
+                        <a href="forum.html">Fórum</a>
+                        <a href="references.html">Referências</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <h1>Fórum de Sugestões</h1>
+            <div class="form-section">
+                <h2>Nova Sugestão</h2>
+                <form id="suggestion-form">
+                    <div class="form-group">
+                        <label for="category">Categoria</label>
+                        <select id="category" required>
+                            <option value="Novos Modelos">Novos Modelos</option>
+                            <option value="Feedback sobre Produtos">Feedback sobre Produtos</option>
+                            <option value="Melhorias no Site">Melhorias no Site</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="suggestion">Sugestão</label>
+                        <textarea id="suggestion" required></textarea>
+                    </div>
+                    <button type="submit" class="button">Enviar</button>
+                </form>
+            </div>
+            <div id="suggestion-list"></div>
+        </main>
+        <footer>
+            <p>© 2025 Veni Vidi Velocipede. Todos os direitos reservados.</p>
+        </footer>
+        <script src="js/forum.js"></script>
+    </body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Veni Vidi Velocipede - Administração</title>
+        <link rel="stylesheet" href="css/admin.css">
+        <link rel="icon" href="icon/bike-.png">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div class="nav-container">
+                    <a href="index.html" class="logo">Veni Vidi Velocipede</a>
+                    <div class="nav-links">
+                        <a href="index.html">Início</a>
+                        <a href="catalog.html">Catálogo</a>
+                        <a href="admin.html">Admin</a>
+                        <a href="forum.html">Fórum</a>
+                        <a href="references.html">Referências</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <section id="login-section" class="admin-management">
+                <h2>Login de Administrador</h2>
+                <form id="login-form">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" required>
+                    <button type="submit" class="button">Login</button>
+                </form>
+                <button id="logout-btn" class="button hidden">Logout</button>
+            </section>
+            <section id="admin-content" class="admin-management hidden">
+                <h2>Gestão de Produtos</h2>
+                <button id="add-product-btn" class="button">Adicionar Produto</button>
+                <form id="product-form-element" class="hidden">
+                    <input type="hidden" id="product-id">
+                    <label for="model">Modelo:</label>
+                    <input type="text" id="model" required>
+                    <label for="description">Descrição:</label>
+                    <textarea id="description" required></textarea>
+                    <label for="price">Preço (€):</label>
+                    <input type="number" id="price" step="0.01" required>
+                    <label for="image">Imagem (URL):</label>
+                    <input type="url" id="image">
+                    <label for="category">Categoria:</label>
+                    <select id="category" required>
+                        <option value="Montanha">Montanha</option>
+                        <option value="Estrada">Estrada</option>
+                        <option value="Urbana">Urbana</option>
+                        <option value="Elétrica">Elétrica</option>
+                    </select>
+                    <button type="submit" class="button">Salvar</button>
+                    <button type="button" id="cancel-btn" class="button">Cancelar</button>
+                </form>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Modelo</th>
+                            <th>Descrição</th>
+                            <th>Preço</th>
+                            <th>Preço Sem IVA</th>
+                            <th>IVA</th>
+                            <th>Categoria</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-product-list"></tbody>
+                </table>
+                <h2>Gestão de Sugestões</h2>
+                <div id="admin-suggestion-list"></div>
+            </section>
+        </main>
+        <footer>
+            <p>© 2025 Veni Vidi Velocipede. Todos os direitos reservados.</p>
+        </footer>
+        <script src="js/products.js"></script>
+    </body>
+</html>
